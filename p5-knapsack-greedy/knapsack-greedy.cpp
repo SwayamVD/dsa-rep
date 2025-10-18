@@ -2,7 +2,7 @@
 using namespace std;
 
 #define N 3
-#define CAP 15
+#define CAP 50
 
 
 class greedy{
@@ -24,9 +24,10 @@ void greedy::getoptimal(){
             cout<<"\nIncluded item ("<<i+1<<") , Currect [Price][Remaining Capacity]: ["<<result<<"]["<<currentcap<<"]\n";
         }
         else{
-            result += knapsack[i][2] * currentcap;
+            double frac = knapsack[i][2] * currentcap;
+            result += frac;
             currentcap = 0;
-            cout<<"\nIncluded item ("<<i+1<<") <fractional> , Currect [Price][Remaining Capacity]: ["<<result<<"]["<<currentcap<<"]\n";
+            cout<<"\nIncluded item ("<<i+1<<") <fractional price: "<<frac<<"> , Currect [Price][Remaining Capacity]: ["<<result<<"]["<<currentcap<<"]\n";
             break;
         }
     }
