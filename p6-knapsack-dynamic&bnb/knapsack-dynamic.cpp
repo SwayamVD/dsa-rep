@@ -25,10 +25,10 @@ int knapsackDP(int W, vector<int> &wt, vector<int> &val, int n)
 
 int main()
 {
-    int n = 4;
-    vector<int> wt = {2, 1, 3, 2};
-    vector<int> val = {12, 10, 20, 15};
-    int W = 5;
+    int n = 6;
+    vector<int> wt = {10, 20, 30, 5, 15, 25};
+    vector<int> val = {60, 100, 120, 50, 70, 90};
+    int W = 50;
     cout << "Maximum value in knapsack = " << knapsackDP(W, wt, val, n) << endl;
     return 0;
 }
