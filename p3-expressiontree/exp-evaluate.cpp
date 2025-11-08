@@ -61,7 +61,7 @@ bool exp::isoperator(char ch)
 
 void exp::getstring()
 {
-    cout << "Enter the Postfix expression string: ";
+    cout << "Enter the Prefix expression string: ";
     cin >> str;
     str += '#';
 }
@@ -135,7 +135,7 @@ int main()
 {
     exp e;
     e.getstring();
-    e.buildtree();
+    e.buildtreeprefix();
     e.inorderdisplay(e.root);
     cout << "\nAfter evaluation: " << e.evaluate(e.root);
     return 0;
