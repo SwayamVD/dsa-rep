@@ -43,7 +43,19 @@ public:
     void inordernonrec();
     void preordernonrec();
     void postordernonrec();
+    void swaptree(node *root);
 };
+
+void exp::swaptree(node *root)
+{
+    if (root == NULL)
+        return;
+    node *temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+    swaptree(root->left);
+    swaptree(root->right);
+}
 
 void exp::preordernonrec()
 {
@@ -211,4 +223,9 @@ int main()
     cout << "\nPostorder Nonrec: ";
     e.postordernonrec();
     cout << "\nAfter evaluation: " << e.evaluate(e.root) << endl;
+
+    // after swaping the subtree
+    e.swaptree(e.root);
+    cout << "After swaping the inorder : ";
+    e.inordernonrec();
 }
