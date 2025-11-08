@@ -1,3 +1,14 @@
+/*
+5. A relief organisation needs to distribute food packages to flood affected areas
+using a limited capacity truck. Each package type has a weight and a benefit
+score (importance). Write a CPP program to select the combination of packages
+that maximize total benefit using fractional knapsack greedy method.
+Display:
+1. Each package selected and its fraction.
+2. Total benefit obtained
+3. Total truck weight used
+*/
+
 #include <iostream>
 #include <algorithm>
 using namespace std;
