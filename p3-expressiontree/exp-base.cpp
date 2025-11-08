@@ -1,7 +1,6 @@
 #include <iostream>
 #include <stack>
 #include <string>
-
 using namespace std;
 
 struct node
@@ -20,8 +19,7 @@ class exp
 {
 public:
     node *root;
-    string s1;
-
+    string str;
     exp()
     {
         root = nullptr;
@@ -29,9 +27,8 @@ public:
     bool isoperator(char ch);
     void getstring();
     void buildtree();
-    void preorderdisplay(node *root);
-    void postorderdisplay(node *root);
-    void inorderdisplay(node *root);
+    void inorderdisplay(node *x);
+    void buildtreeprefix();
 };
 
 bool exp::isoperator(char ch)
@@ -41,70 +38,76 @@ bool exp::isoperator(char ch)
 
 void exp::getstring()
 {
-    cout << "\nEnter a postfix expression: ";
-    cin >> s1;
-    s1 += '#';
+    cout << "Enter the Postfix expression string: ";
+    cin >> str;
+    str += '#';
 }
 
+// for postfix expression, call accordingly
 void exp::buildtree()
 {
     stack<node *> stk;
     int cnt = 0;
-    while (s1[cnt] != '#')
+    while (str[cnt] != '#')
     {
-        if (isoperator(s1[cnt]))
+        if (isoperator(str[cnt]))
         {
             node *rl = stk.top();
             stk.pop();
             node *ll = stk.top();
             stk.pop();
-            node *newl = new node(s1[cnt]);
-            newl->right = rl;
-            newl->left = ll;
-            stk.push(newl);
+            node *nn = new node(str[cnt]);
+            nn->left = ll;
+            nn->right = rl;
+            stk.push(nn);
         }
         else
         {
-            node *newl = new node(s1[cnt]);
-            stk.push(newl);
+            node *nn = new node(str[cnt]);
+            stk.push(nn);
         }
         cnt++;
     }
     root = stk.top();
 }
 
-void exp::postorderdisplay(node *root)
+// for prefix expression , call accordingly
+void exp::buildtreeprefix()
 {
-    if (root == nullptr)
+    stack<node *> stk;
+    int cnt = str.size() - 1;
+    while (cnt >= 0)
     {
-        return;
+        if (isoperator(str[cnt]))
+        {
+            node *ll = stk.top();
+            stk.pop();
+            node *rl = stk.top();
+            stk.pop();
+            node *nn = new node(str[cnt]);
+            nn->left = ll;
+            nn->right = rl;
+            stk.push(nn);
+        }
+        else
+        {
+            node *nn = new node(str[cnt]);
+            stk.push(nn);
+        }
+        cnt--;
     }
-    postorderdisplay(root->left);
-    postorderdisplay(root->right);
-    cout << root->ch << " ";
+    root = stk.top();
 }
 
-void exp::preorderdisplay(node *root)
+void exp::inorderdisplay(node *x)
 {
-    if (root == nullptr)
+    if (x == nullptr)
     {
         return;
     }
-    cout << root->ch << " ";
-    preorderdisplay(root->left);
-    preorderdisplay(root->right);
-}
-
-void exp::inorderdisplay(node *root)
-{
-    if (root == nullptr)
-    {
-        return;
-    }
-
-    inorderdisplay(root->left);
-    cout << root->ch << " ";
-    inorderdisplay(root->right);
+    inorderdisplay(x->left);
+    cout << x->ch << " ";
+    inorderdisplay(x->right);
 }
 
 int main()
@@ -112,19 +115,6 @@ int main()
     exp e;
     e.getstring();
     e.buildtree();
-    cout << "\nExpression Tree (Postorder Traversal): ";
-    e.postorderdisplay(e.root);
-    cout << "\nExpression Tree (Postorder Traversal): ";
-    e.preorderdisplay(e.root);
-    cout << "\nExpression Tree (Inorder Traversal): ";
     e.inorderdisplay(e.root);
-    cout << endl;
     return 0;
 }
-
-/*
-if char = operand : create node and push to stack
-if char = operator : create node and pop 1 , pop 2 then node.left = 2, node.right = 1, then push node to stack
-
-once string is empty then root = stack.pop
-*/

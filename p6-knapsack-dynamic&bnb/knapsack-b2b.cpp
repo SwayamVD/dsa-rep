@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <tuple>
 using namespace std;
 
 struct Item
@@ -25,25 +29,6 @@ int bound(int i, int n, int W, int currentWeight, int currentValue, vector<Item>
     return boundVal;
 }
 
-void displayq(queue<tuple<int, int, int>> q)
-{
-    cout << "{ ";
-    while (!q.empty())
-    {
-        auto t = q.front();
-        int level = get<0>(t);
-        int value = get<1>(t);
-        int weight = get<2>(t);
-        cout << "[" << level << "," << value << "," << weight << "]";
-        q.pop();
-        if (!q.empty())
-        {
-            cout << ", ";
-        }
-    }
-    cout << " }" << endl;
-}
-
 int knapsackBB(vector<Item> &items, int n, int W)
 {
     sort(items.begin(), items.end(), cmp);
@@ -52,7 +37,6 @@ int knapsackBB(vector<Item> &items, int n, int W)
     q.push({0, 0, 0});
     while (!q.empty())
     {
-        displayq(q);
         // requires C++ 17 version to execute below line...
         // auto [level, value, weight] = q.front();
 
