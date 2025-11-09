@@ -3,6 +3,7 @@
 #include <queue>
 #include <algorithm>
 #include <tuple>
+#include <string>
 using namespace std;
 
 struct Item
@@ -33,8 +34,8 @@ int knapsackBB(vector<Item> &items, int n, int W)
 {
     sort(items.begin(), items.end(), cmp);
     int maxValue = 0;
-    queue<tuple<int, int, int>> q;
-    q.push({0, 0, 0});
+    queue<tuple<int, int, int, string>> q;
+    q.push({0, 0, 0, ""});
     while (!q.empty())
     {
         // requires C++ 17 version to execute below line...
@@ -44,6 +45,7 @@ int knapsackBB(vector<Item> &items, int n, int W)
         int level = get<0>(t);
         int value = get<1>(t);
         int weight = get<2>(t);
+        string taken = get<3>(t);
         q.pop();
         if (level == n)
             continue;
@@ -51,15 +53,17 @@ int knapsackBB(vector<Item> &items, int n, int W)
         {
             int newValue = value + items[level].value;
             int newWeight = weight + items[level].weight;
+            string newtaken = taken + " item" + to_string(level);
             maxValue = max(maxValue, newValue);
+            cout << "New best value = " << maxValue << " by taking: " << newtaken << endl;
             if (bound(level + 1, n, W, newWeight, newValue, items) > maxValue)
             {
-                q.push({level + 1, newValue, newWeight});
+                q.push({level + 1, newValue, newWeight, newtaken});
             }
         }
         if (bound(level + 1, n, W, weight, value, items) > maxValue)
         {
-            q.push({level + 1, value, weight});
+            q.push({level + 1, value, weight, taken});
         }
     }
     return maxValue;

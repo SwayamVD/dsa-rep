@@ -75,6 +75,7 @@ void greedy::getinfo()
         cout << "Enter " << i + 1 << "'s Price, Weight: ";
         cin >> knapsack[i][0] >> knapsack[i][1];
         knapsack[i][2] = knapsack[i][0] / knapsack[i][1];
+        // [value,weight,ratio]
     }
     cout << "\nInfo entered successfully.\n";
     displayknapsack();
