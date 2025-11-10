@@ -27,6 +27,20 @@ public:
     void findconnectingroads();
 };
 
+void intersection::findconnectingroads()
+{
+    int id;
+    cout << "Enter the interesection id: ";
+    cin >> id;
+    for (int i = 0; i < NI; i++)
+    {
+        if (time[id][i] != 0)
+        {
+            cout << "Interection " << inter[i] << endl;
+        }
+    }
+}
+
 void intersection::getintersections()
 {
     cout << "Enter no of Interesections: ";
@@ -124,4 +138,5 @@ int main()
     f.getroads();
     f.displayall();
     f.findroads();
+    f.findconnectingroads();
 }

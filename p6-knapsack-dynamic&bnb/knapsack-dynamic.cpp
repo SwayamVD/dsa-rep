@@ -20,6 +20,17 @@ int knapsackDP(int W, vector<int> &wt, vector<int> &val, int n)
             }
         }
     }
+    cout << "\nItems Selected: ";
+    int w = W;
+    for (int i = n; i > 0; i--)
+    {
+        if (dp[i][w] != dp[i - 1][w])
+        {
+            cout << (i - 1) << " ";
+            w -= wt[i - 1];
+        }
+    }
+    cout << endl;
     return dp[n][W];
 }
 
